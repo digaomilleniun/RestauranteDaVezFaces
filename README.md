@@ -10,7 +10,7 @@ Teste DBServer
 - Adicionar o jar do driver nesta pasta.
 - Criar o arquivo com o nome module.xml com o conteúdo abaixo, na pasta acima
 
-<code>
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="org.postgresql" xmlns="urn:jboss:module:1.3">
   <resources>
@@ -21,4 +21,4 @@ Teste DBServer
     <module name="javax.transaction.api"/>
   </dependencies>
 </module>
-</code>
+```
