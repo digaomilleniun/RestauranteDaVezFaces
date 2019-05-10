@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+	        <p:autoUpdate />
+	    </p:messages>
+		<h:panelGrid columns="4" cellpadding="5">
+			<h:outputLabel for="name" value="Nome:" style="font-weight:bold" />
+			<p:inputText id="name" value="#{restauranteController.restaurante.nome}" required="true" requiredMessage="Campo nome é obrigatório" />
+			
+			<p:outputLabel for="event" value="Data de cadastro:" />
+	        <p:calendar id="event" value="#{restauranteController.restaurante.dataCadastro}" mindate="today" />
+			
+			<p:commandButton value="Salvar" action="#{restauranteController.salvar}" styleClass="ui-priority-primary" update="messages" />
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

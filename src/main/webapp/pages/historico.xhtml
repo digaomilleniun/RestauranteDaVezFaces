@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form>
+		<p:outputLabel for="event" value="Data" />
+        <p:calendar id="event" value="#{votarController.dataSelecionada}" maxdate="yesterday">
+            <p:ajax event="dateSelect" listener="#{votarController.onDateSelect}" update="dataTable" />
+        </p:calendar>
+		<p:dataTable id="dataTable" var="rest" value="#{votarController.restaurantesHistorico}">
+			<p:column headerText="Id">
+				<h:outputText value="#{rest.id}" />
+			</p:column>
+	
+			<p:column headerText="Nome">
+				<h:outputText value="#{rest.nome}" />
+			</p:column>
+			
+			<p:column headerText="Votos">
+				<p:column headerText="Quantidade de Votos">
+					<h:outputText value="#{rest.votos.size()}" />
+				</p:column>
+			</p:column>
+		</p:dataTable>
+		<p:commandButton value="Voltar" id="btnVoltar" action="#{votarController.redirectIndex}" immediate="true" styleClass="ui-priority-primary"/>
+	</h:form>
+</h:body>
+</html>

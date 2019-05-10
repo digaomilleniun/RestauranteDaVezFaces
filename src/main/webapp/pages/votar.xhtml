@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="restaurantes" value="Restaurante: " style="font-weight:bold" />
+			<h:selectOneMenu id="restaurantes" value="#{votarController.restauranteSelecionado}" required="true" requiredMessage="Restaurante é um campo obrigatório" >
+				<f:selectItems value="#{votarController.restaurantes}" var="item" itemLabel="#{item.nome}" itemValue="#{item}" noSelectionOption="false"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="name" value="Nome Profissional:" style="font-weight:bold" />
+			<p:inputText id="name" value="#{votarController.voto.nomeProfissional}" required="true" requiredMessage="Profissional é um campo obrigatório" />
+		
+			<p:commandButton value="Votar" id="btnVotar" action="#{votarController.votar}" styleClass="ui-priority-primary" update="messages"/>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

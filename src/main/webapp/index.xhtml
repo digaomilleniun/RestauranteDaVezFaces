@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:outputPanel id="panelBotoes">
+			<p:commandButton value="Cadastrar Restaurante" id="btnNovo" action="#{restauranteController.novoRestaurante}" immediate="true" styleClass="ui-priority-primary" disabled="#{votarController.existeRestauranteVencedor()}"/>
+			<p:commandButton value="Finalizar Votação" id="btnVotacao" action="#{votarController.finalizarVotacao}" immediate="true" update="panelVencedor panelBotoes dataTable messages" styleClass="ui-priority-primary" disabled="#{votarController.existeRestauranteVencedor()}"/>
+			<p:commandButton value="Ver Histórico" id="btnHist" action="#{votarController.verHistorico}" immediate="true" styleClass="ui-priority-primary"/>
+			
+			<p:outputLabel for="event" value="Data" />
+	        <p:calendar id="event" maxdate="yesterday">
+	            <p:ajax event="dateSelect" listener="#{restauranteController.onDateSelect}" update="dataTable panelVencedor panelBotoes messages" />
+	        </p:calendar>
+			
+		</p:outputPanel>
+	
+		<br/>
+		<p:dataTable id="dataTable" var="rest" value="#{restauranteController.restaurantes}">
+			<p:column headerText="Id">
+				<h:outputText value="#{rest.id}" />
+			</p:column>
+	
+			<p:column headerText="Nome">
+				<h:outputText value="#{rest.nome}" />
+			</p:column>
+			
+			<p:column headerText="Votos">
+				<p:column headerText="Quantidade de Votos">
+					<h:outputText value="#{rest.votos.size()}" />
+				</p:column>
+			</p:column>
+			
+			<p:column headerText="Votar">
+				<p:commandButton value="Votar" id="btnVotar" action="#{restauranteController.redirectVotar}" immediate="true" styleClass="ui-priority-primary" disabled="#{votarController.existeRestauranteVencedor()}"/>
+			</p:column>
+			
+		</p:dataTable>
+		
+		<br/><br/><br/><br/>
+		
+		<p:outputPanel id="panelVencedor">
+			<p:panel id="basic" header="Restaurante Vencedor" style="margin-bottom:20px" rendered="#{votarController.existeRestauranteVencedor()}">
+		        <h:panelGrid columns="2" cellpadding="10">
+		           Nome do Restaurante: <h:outputText value="#{votarController.restauranteVencedor.restaurante.nome}" />
+		           Quantidade de votos <h:outputText value="#{votarController.restauranteVencedor.qtdVotos}" />
+		           Data da Votação <h:outputText value="#{votarController.restauranteVencedor.dataFormatada}" />
+		        </h:panelGrid>
+		    </p:panel>
+	    </p:outputPanel>
+    </h:form>
+</h:body>
+</html>
